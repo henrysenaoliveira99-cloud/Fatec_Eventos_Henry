@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Eventos | Fatec Eventos{% endblock %}
+{% block content %}<section class="page-banner"><div class="container"><span class="eyebrow">AGENDA COMPLETA</span><h1>Todos os eventos</h1><p>Explore as atividades e encontre sua próxima oportunidade.</p></div></section>
+<section class="section"><div class="container"><form class="search-form" method="get"><input type="search" name="q" value="{{ search }}" placeholder="Buscar evento pelo título..."><button class="btn btn-primary">Buscar</button></form><div class="event-grid">
+{% for event in events %}<article class="event-card"><div class="event-card-top"><span class="category">{{ event.category }}</span><span class="event-number">#{{ event.id }}</span></div><div class="date-block"><b>{{ event.starts_at.strftime('%d') }}</b><span>{{ event.starts_at.strftime('%b')|upper }}</span></div><h3>{{ event.title }}</h3><p>{{ event.description|truncate(115) }}</p><div class="event-meta"><span>⌖ {{ event.location }}</span><span>◷ {{ event.starts_at.strftime('%d/%m · %H:%M') }}</span></div><a class="card-link" href="{{ url_for('events.event_detail', event_id=event.id) }}">Ver detalhes <span>→</span></a></article>
+{% else %}<div class="empty-state"><h3>Nenhum resultado encontrado</h3><p>Tente outro termo de busca.</p></div>{% endfor %}
+</div></div></section>{% endblock %}

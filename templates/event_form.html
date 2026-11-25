@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{% if event %}Editar{% else %}Novo{% endif %} evento | Fatec Eventos{% endblock %}
+{% block content %}<section class="page-banner"><div class="container"><span class="eyebrow">GESTÃO DE EVENTOS</span><h1>{% if event %}Editar evento{% else %}Criar novo evento{% endif %}</h1><p>Preencha as informações para publicar na agenda acadêmica.</p></div></section>
+<section class="section"><div class="container form-container"><form method="post" class="panel-form">
+<label>Título do evento<input name="title" required maxlength="160" value="{{ event.title if event else '' }}"></label>
+<label>Categoria<input name="category" required value="{{ event.category if event else 'Acadêmico' }}"></label>
+<label class="full-field">Descrição<textarea name="description" rows="5" required>{{ event.description if event else '' }}</textarea></label>
+<label>Local<input name="location" required value="{{ event.location if event else '' }}" placeholder="Ex.: Auditório da Fatec"></label>
+<label>Capacidade (0 = não informada)<input name="capacity" type="number" min="0" value="{{ event.capacity if event else 0 }}"></label>
+<label>Início<input name="starts_at" type="datetime-local" required value="{{ event.starts_at.strftime('%Y-%m-%dT%H:%M') if event else '' }}"></label>
+<label>Término (opcional)<input name="ends_at" type="datetime-local" value="{{ event.ends_at.strftime('%Y-%m-%dT%H:%M') if event and event.ends_at else '' }}"></label>
+<div class="form-actions"><a class="btn btn-outline" href="{{ url_for('events.event_list') }}">Cancelar</a><button class="btn btn-primary">Salvar evento ↗</button></div>
+</form></div></section>{% endblock %}
